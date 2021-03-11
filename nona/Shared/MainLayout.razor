@@ -1,5 +1,8 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
+@using Blazored.Toast
+@using Blazored.Toast.Configuration 
+
 <!-- Preloader Start -->
 <div id="preloader-wapper">
     <div class="loader-middle"></div>
@@ -8,8 +11,13 @@
 @Body
 
 <Footer />
+<BlazoredToasts SuccessIcon="fa fa-thumbs-up" ErrorIcon="fa fa-bug" Position="ToastPosition.BottomRight"
+                Timeout="4"
+                IconType="IconType.FontAwesome"
+                ShowProgressBar="@false" />
 <!-- Back to Top -->
 <a href="#" class="back-to-top back-to-top-pulse"><i class="fa fa-caret-up"></i></a>
+
 @code {
     protected override Task OnAfterRenderAsync(bool firstRender)
     {

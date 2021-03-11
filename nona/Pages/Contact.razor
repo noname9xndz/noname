@@ -1,66 +1,114 @@
+@using nona.Services
+@using Nona.Component.UploadFile.Models
+@using System.IO
+@using Blazored.Toast
+@using Blazored.Toast.Services
+@using nona.Models
+@inject IEmailService _emailService
+@inject IToastService _toastService
 <section id="contact" class="contact-area section-padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 section-title">
-                        <h2>Contact Us</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-md-5">
-                        <div class="row contact-information">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="contact-details">
-                                    <i class="fa fa-phone"></i>
-                                    <h6>Call us</h6>
-                                    <p>+039 211 8585</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="contact-details">
-                                    <i class="fa fa-home"></i>
-                                    <h6>Visit us</h6>
-                                    <p>17 To Huu Trung Van, Nam Tu Liêm, Ha Noi</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="contact-details">
-                                    <i class="fa fa-envelope"></i>
-                                    <h6>Email us</h6>
-                                    <p>noname9xnd@gmail.com</p>
-                                </div>
-                            </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 section-title">
+                <h2>Contact Us</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-5">
+                <div class="row contact-information">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="contact-details">
+                            <i class="fa fa-phone"></i>
+                            <h6>Call us</h6>
+                            <p>+039 211 8585</p>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-7">
-                        <p class="form-message"></p>
-                        <br>
-                        <form class="contact-form form" id="contact-form" action="" method="POST">
-                            <div class="controls">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="form-group has-error has-danger">
-                                            <input id="form_name" type="text" name="name" placeholder="Type Your Name" required="required"> </div>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="form-group has-error has-danger">
-                                            <input id="form_email" type="email" name="email" placeholder="Type Your Email" required="required"> </div>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="form-group has-error has-danger">
-                                            <input id="form_subject" type="text" name="subject" placeholder="Type Your Subject" required="required"> </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <textarea id="form_message" name="message" placeholder="Type Your Message" rows="4" required="required"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <button type="submit" class="button" data-text="Send Message"><span>Send Message</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="contact-details">
+                            <i class="fa fa-home"></i>
+                            <h6>Visit us</h6>
+                            <p>17 To Huu Trung Van, Nam Tu Liêm, Ha Noi</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="contact-details">
+                            <i class="fa fa-envelope"></i>
+                            <h6>Email us</h6>
+                            <p>noname9xnd@gmail.com</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+            <div class="col-lg-6 col-md-7">
+                <p class="form-message"></p>
+                <br>
+                <EditForm Model="_contactModel" OnSubmit="SendMail" class="contact-form form" id="contact-form" method="POST">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="controls">
+                        <div class="row">
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group has-error has-danger">
+                                    <InputText id="form_name" type="text" name="name" placeholder="Type Your Name" required="required" @bind-Value="_contactModel.Name"/> </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group has-error has-danger">
+                                    <InputText id="form_email" type="email" name="email" placeholder="Type Your Email" required="required" @bind-Value="_contactModel.Email"/> </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group has-error has-danger">
+                                    <InputText id="form_subject" type="text" name="subject" placeholder="Type Your Subject" required="required" @bind-Value="_contactModel.Subject"/> </div>
+                            </div>
+                            @* <div class="col-lg-12 col-md-12">
+                                <div class="form-group has-error has-danger">
+                                    <InputFile OnChange="UpLoadFile"  />
+                                </div>
+                            </div>*@
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <InputTextArea id="form_message" name="message" placeholder="Type Your Message" rows="4" required="required" @bind-Value="_contactModel.Message"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="button" data-text="Send Message"><span>Send Message</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code{
+    ContactModel _contactModel = new ContactModel();
+
+
+    private async Task UpLoadFile(IFileListEntry[] files)
+    {
+        var file = files.FirstOrDefault();
+        if (file != null)
+        {
+            var ms = new MemoryStream();
+            await file.Data.CopyToAsync(ms);
+            
+        }
+    }
+
+    private async Task SendMail()
+    {
+        
+        var res = await _emailService.SendMail(_contactModel);
+
+        if (res)
+        {
+            _toastService.ShowSuccess("Your message has been successfully sent. We will contact you very soon!", "Thank you for contacting us.");
+        }
+        else
+        {
+           _toastService.ShowError("Email send failed", "Error");
+        }
+    }
+
+}

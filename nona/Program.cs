@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Blazored.Toast;
+using nona.Services;
 
 namespace nona
 {
@@ -19,7 +21,9 @@ namespace nona
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+            builder.Services.AddHttpClient();
+            builder.Services.AddBlazoredToast();
+            builder.Services.AddScoped<IEmailService, EmailService>();
             await builder.Build().RunAsync();
         }
     }
