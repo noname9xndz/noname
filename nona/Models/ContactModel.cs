@@ -13,4 +13,6 @@ namespace nona.Models
         [Required]
         public string Message { set; get; }
     }
+
+
 }

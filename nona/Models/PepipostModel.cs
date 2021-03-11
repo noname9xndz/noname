@@ -7,26 +7,33 @@ namespace nona.Models
 {
     public class PepipostModel
     {
-        public PepipostModel()
-        {
-            personalizations = new List<Personalization>();
-            from = new From();
-        }
-        public List<Personalization> personalizations { get; set; }
         public From from { get; set; }
         public string subject { get; set; }
-        public string content { get; set; }
+        public Content[] content { get; set; }
+        public Personalization[] personalizations { get; set; }
     }
 
     public class From
     {
-        public string fromEmail { get; set; }
-        public string fromName { get; set; }
+        public string email { get; set; }
+        public string name { get; set; }
+    }
+
+    public class Content
+    {
+        public string type { get; set; }
+        public string value { get; set; }
     }
 
     public class Personalization
     {
-        public string recipient { get; set; }
+        public To[] to { get; set; }
+    }
+
+    public class To
+    {
+        public string email { get; set; }
+        public string name { get; set; }
     }
 
 

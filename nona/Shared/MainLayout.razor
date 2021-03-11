@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@inject IJSRuntime JSRuntime
+@inject IJSRuntime _jsRuntime
 @using Blazored.Toast
 @using Blazored.Toast.Configuration 
 
@@ -21,10 +21,10 @@
 @code {
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        JSRuntime.InvokeVoidAsync("particles");
-        JSRuntime.InvokeVoidAsync("particles_app");
-        JSRuntime.InvokeVoidAsync("mainjs");
-        JSRuntime.InvokeVoidAsync("scroll_js");
+        _jsRuntime.InvokeVoidAsync("particles");
+        _jsRuntime.InvokeVoidAsync("particles_app");
+        _jsRuntime.InvokeVoidAsync("mainjs");
+        _jsRuntime.InvokeVoidAsync("scroll_js");
         return base.OnAfterRenderAsync(firstRender);
     }
 }

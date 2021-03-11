@@ -3,9 +3,11 @@
 @using System.IO
 @using Blazored.Toast
 @using Blazored.Toast.Services
+@using Newtonsoft.Json
 @using nona.Models
 @inject IEmailService _emailService
 @inject IToastService _toastService
+@inject IJSRuntime _jsRuntime
 <section id="contact" class="contact-area section-padding">
     <div class="container">
         <div class="row">
@@ -92,15 +94,14 @@
         {
             var ms = new MemoryStream();
             await file.Data.CopyToAsync(ms);
-            
         }
     }
 
     private async Task SendMail()
     {
-        
         var res = await _emailService.SendMail(_contactModel);
-
+        //var jsonObject = JsonConvert.SerializeObject(GetPepipostModel(_contactModel));
+        //var res = await _jsRuntime.InvokeAsync<string>("pepipost",jsonObject,"bdf16d57311e1ead6bd0c332210e63de");
         if (res)
         {
             _toastService.ShowSuccess("Your message has been successfully sent. We will contact you very soon!", "Thank you for contacting us.");
@@ -109,6 +110,26 @@
         {
            _toastService.ShowError("Email send failed", "Error");
         }
+    }
+
+    private PepipostModel GetPepipostModel(ContactModel model)
+    {
+        var pepipostModel = new PepipostModel()
+        {
+            subject = model.Subject,
+            from = new From()
+            {
+                email = model.Email,
+                name = model.Name
+            }
+        };
+        Content[] contents = { new Content() { type = "html", value = model.Message }, };
+        pepipostModel.content = contents;
+        To[] toMail = { new To() { email = "noname9xnd@gmail.com", name = "nona" } };
+        Personalization[] personalizations = { new Personalization() { to = toMail } };
+        pepipostModel.personalizations = personalizations;
+
+        return pepipostModel;
     }
 
 }
