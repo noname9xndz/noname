@@ -1,0 +1,24 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+<!-- Preloader Start -->
+<div id="preloader-wapper">
+    <div class="loader-middle"></div>
+</div>
+<!-- Prealoader End -->
+@Body
+
+<Footer />
+<!-- Back to Top -->
+<a href="#" class="back-to-top back-to-top-pulse"><i class="fa fa-caret-up"></i></a>
+@code {
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        JSRuntime.InvokeVoidAsync("particles");
+        JSRuntime.InvokeVoidAsync("particles_app");
+        JSRuntime.InvokeVoidAsync("mainjs");
+        JSRuntime.InvokeVoidAsync("scroll_js");
+        return base.OnAfterRenderAsync(firstRender);
+    }
+}
+
+
