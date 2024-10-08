@@ -2,6 +2,7 @@
 @using Nona.Component.UploadFile.Models
 @using System.IO
 @using Blazored.Toast
+@using Blazored.Toast.Configuration
 @using Blazored.Toast.Services
 @using Newtonsoft.Json
 @using nona.Models
@@ -104,11 +105,11 @@
         //var res = await _jsRuntime.InvokeAsync<string>("pepipost",jsonObject,"bdf16d57311e1ead6bd0c332210e63de");
         if (res)
         {
-            _toastService.ShowSuccess("Your message has been successfully sent. We will contact you very soon!", "Thank you for contacting us.");
+            _toastService.ShowInfo("Your message has been successfully sent. We will contact you very soon!", settings => { settings.IconType = IconType.None; settings.DisableTimeout = true; });
         }
         else
         {
-           _toastService.ShowError("Email send failed", "Error");
+           _toastService.ShowError("Email send failed");
         }
     }
 

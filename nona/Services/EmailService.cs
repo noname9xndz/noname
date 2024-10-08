@@ -9,8 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using nona.Models;
-using RestClient.Net;
-using RestClient.Net.Abstractions.Extensions;
+//using RestClient.Net;
+//using RestClient.Net.Abstractions.Extensions;
 
 namespace nona.Services
 {
