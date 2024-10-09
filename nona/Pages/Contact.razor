@@ -1,4 +1,3 @@
-@using nona.Services
 @using Nona.Component.UploadFile.Models
 @using System.IO
 @using Blazored.Toast
@@ -6,7 +5,7 @@
 @using Blazored.Toast.Services
 @using Newtonsoft.Json
 @using nona.Models
-@inject IEmailService _emailService
+@inject ITelegramBotService _teleService
 @inject IToastService _toastService
 @inject IJSRuntime _jsRuntime
 <section id="contact" class="contact-area section-padding">
@@ -100,7 +99,7 @@
 
     private async Task SendMail()
     {
-        var res = await _emailService.SendMail(_contactModel);
+        var res = await _teleService.SendMessage(_contactModel);
         //var jsonObject = JsonConvert.SerializeObject(GetPepipostModel(_contactModel));
         //var res = await _jsRuntime.InvokeAsync<string>("pepipost",jsonObject,"bdf16d57311e1ead6bd0c332210e63de");
         if (res)
