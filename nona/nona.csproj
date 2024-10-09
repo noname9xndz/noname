@@ -15,10 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Nona.Component.UploadFile\Nona.Component.UploadFile.csproj" />
+    <None Include="publish/wwwroot/vercel.json"  CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="publish/wwwroot/vercel.json"  CopyToPublishDirectory="PreserveNewest" />
+    <Content Update="wwwroot\assets\img\favicon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

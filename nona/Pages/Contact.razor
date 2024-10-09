@@ -1,4 +1,4 @@
-@using Nona.Component.UploadFile.Models
+@* @using Nona.Component.UploadFile.Models *@
 @using System.IO
 @using Blazored.Toast
 @using Blazored.Toast.Configuration
@@ -52,15 +52,15 @@
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group has-error has-danger">
-                                    <InputText id="form_name" type="text" name="name" placeholder="Type Your Name" required="required" @bind-Value="_contactModel.Name"/> </div>
+                                    <InputText id="form_name" type="text" name="name" placeholder="Your Name" required="required" @bind-Value="_contactModel.Name"/> </div>
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group has-error has-danger">
-                                    <InputText id="form_email" type="email" name="email" placeholder="Type Your Email" required="required" @bind-Value="_contactModel.Email"/> </div>
+                                    <InputText id="form_email" type="email" name="email" placeholder="Your Email" required="required" @bind-Value="_contactModel.Email"/> </div>
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group has-error has-danger">
-                                    <InputText id="form_subject" type="text" name="subject" placeholder="Type Your Subject" required="required" @bind-Value="_contactModel.Subject"/> </div>
+                                    <InputText id="form_subject" type="text" name="subject" placeholder="Your Subject" required="required" @bind-Value="_contactModel.Subject"/> </div>
                             </div>
                             @* <div class="col-lg-12 col-md-12">
                                 <div class="form-group has-error has-danger">
@@ -69,7 +69,7 @@
                             </div>*@
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <InputTextArea id="form_message" name="message" placeholder="Type Your Message" rows="4" required="required" @bind-Value="_contactModel.Message"/>
+                                    <InputTextArea id="form_message" name="message" placeholder="Your Message" rows="4" required="required" @bind-Value="_contactModel.Message"/>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -87,7 +87,7 @@
     ContactModel _contactModel = new ContactModel();
 
 
-    private async Task UpLoadFile(IFileListEntry[] files)
+    @* private async Task UpLoadFile(IFileListEntry[] files)
     {
         var file = files.FirstOrDefault();
         if (file != null)
@@ -95,13 +95,11 @@
             var ms = new MemoryStream();
             await file.Data.CopyToAsync(ms);
         }
-    }
+    } *@
 
     private async Task SendMail()
     {
         var res = await _teleService.SendMessage(_contactModel);
-        //var jsonObject = JsonConvert.SerializeObject(GetPepipostModel(_contactModel));
-        //var res = await _jsRuntime.InvokeAsync<string>("pepipost",jsonObject,"bdf16d57311e1ead6bd0c332210e63de");
         if (res)
         {
             _toastService.ShowInfo("Your message has been successfully sent. We will contact you very soon!", settings => { settings.IconType = IconType.None; settings.DisableTimeout = true; });
@@ -110,26 +108,6 @@
         {
            _toastService.ShowError("Email send failed");
         }
-    }
-
-    private PepipostModel GetPepipostModel(ContactModel model)
-    {
-        var pepipostModel = new PepipostModel()
-        {
-            subject = model.Subject,
-            from = new From()
-            {
-                email = model.Email,
-                name = model.Name
-            }
-        };
-        Content[] contents = { new Content() { type = "html", value = model.Message }, };
-        pepipostModel.content = contents;
-        To[] toMail = { new To() { email = "noname9xnd@gmail.com", name = "nona" } };
-        Personalization[] personalizations = { new Personalization() { to = toMail } };
-        pepipostModel.personalizations = personalizations;
-
-        return pepipostModel;
     }
 
 }

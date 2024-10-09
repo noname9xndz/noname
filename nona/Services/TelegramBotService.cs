@@ -24,7 +24,6 @@ public class TelegramBotService : ITelegramBotService
     public async Task<bool> SendMessage(ContactModel contact)
     {
         var messageText = $"Name: {contact.Name}\nEmail: {contact.Email}\nSubject: {contact.Subject}\nMessage: {contact.Message}";
-
         var sendMessageUrl = $"https://api.telegram.org/bot{_botToken}/sendMessage";
         var payload = new
         {

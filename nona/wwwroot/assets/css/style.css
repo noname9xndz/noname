@@ -1223,7 +1223,7 @@ dl, ol, ul {
     font-weight: 700;
     font-size: 15px;
     color: #a5a5a5;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 
 .contact-area .form input, .contact-area .form textarea {
@@ -1236,7 +1236,7 @@ dl, ol, ul {
     background-color: #0e0e0e;
     font-weight: 600;
     border-radius: 0px;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     border-bottom: 2px solid #171717;
 }
 
