@@ -30,7 +30,6 @@ namespace nona.Services
                 var stringContent = new StringContent(jsonObject);
                 AddHeaderApi(_httpClient, url, "bdf16d57311e1ead6bd0c332210e63de");
                 var response = await _httpClient.PostAsync("", stringContent);
-                if (response != null && response.Content != null)
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     if (!string.IsNullOrWhiteSpace(content))
@@ -40,11 +39,10 @@ namespace nona.Services
 
                     return true;
                 }
-
             }
-            catch (Exception e)
+            catch (Exception)
             {
-
+                // ignored
             }
 
             return false;

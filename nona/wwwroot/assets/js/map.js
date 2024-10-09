@@ -106,7 +106,7 @@ zoom: 11
 var marker = new google.maps.Marker({
     position: latlng,
     map: map,
-    title: 'Nona'
+    title: 'Luke'
 });
 
 }
